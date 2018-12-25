@@ -1,3 +1,9 @@
+
+UUPDATE sales 
+SET Numero = CONCAT('6',Numero);
+--para agragar id al principio
+
+
 SELECT Numero,Total
     FROM factura WHERE Numero = '211'
 UNION
@@ -61,9 +67,9 @@ UNLOCK TABLES;
 
 --reportes -----------------------------------------------------------------------------------------
 
-SELECT Fecha,Numero,Total,'Factura' FROM factura
+SELECT Fecha,Numero,Total,'F' FROM factura
 UNION
-SELECT Fecha,Numero,Total,'Orden de venta' FROM sales
+SELECT Fecha,Numero,Total,'P' FROM sales
 --listado
 
 SELECT  items.Barcode AS Codigo,items.Descripcion,items.Marca,
@@ -127,7 +133,7 @@ FROM
  WHERE Impuesto='(G)'
  GROUP BY NumeroFactura) C 
   GROUP BY C.NumeroFactura ORDER BY C.NumeroFactura
-  --Contabilidad construct
+  --Contabilidad constructs
 
 
 --------------------------------------------------------------------------------------------------------------
@@ -157,3 +163,11 @@ FROM
   	  GROUP BY Date(a.Fecha)) T GROUP BY T.Fecha ORDER BY T.Fecha
   --ventas diarias sin fecha
   ----------------------------------------------------------------------------------------------------------------
+
+  SELECT DATE_ADD('2018-05-01',INTERVAL 90 DAY);
+  --agregar dias y obtener la fecha despues de esos dias
+
+
+  SELECT Fecha,datediff(curdate(),(SELECT Fecha from saldos where NumFactura='118')) 
+  AS Dias_paraVencer FROM saldos WHERE NumFactura='118';
+  --diferencia de dias entre la fecha actual y una fecha
