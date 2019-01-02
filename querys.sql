@@ -9,6 +9,12 @@ SELECT Numero,Total
 UNION
 SELECT NumeroFactura,SUM(Precio)
     FROM detalles WHERE NumeroFactura = '211';
+
+
+    UPDATE sales SET Numero=(SELECT REPLACE(Numero,substring(Numero,-(length(Numero)),2),''))
+    --para borrar primeros 2 numeros de un campo
+
+    
     --union de 2 consultas
 
     SELECT Numero,Fecha FROM factura WHERE Fecha BETWEEN now() and curdate()
